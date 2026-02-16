@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teen Health & Biology Education</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-heartbeat"></i> Teen Health & Biology</h1>
+            <p class="subtitle">AI-Powered Personalized Health Guidance for Adolescents</p>
+        </header>
+        
+        <main>
+            int <nav>;
+                vin
+            </nav>
+            <div class="card intro-card">
+                <h2><i class="fas fa-info-circle"></i> About This Tool</h2>
+                <p>This educational tool uses advanced AI to provide personalized health guidance based on your Body Mass Index (BMI) and biological development stage. Get custom nutrition plans, activity recommendations, and weekly action plans tailored specifically for you.</p>
+                <p><strong>Note:</strong> This tool provides educational information only. For personal health advice, consult a healthcare professional.</p>
+            </div>
+            
+            <div class="card form-card">
+                <h2><i class="fas fa-calculator"></i> Calculate Your BMI</h2>
+                <p>Enter your information below to receive AI-generated personalized health recommendations.</p>
+                
+                {% if error %}
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                </div>
+                {% endif %}
+                
+                <form method="POST" action="/">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="age"><i class="fas fa-birthday-cake"></i> Age (10-19)</label>
+                            <input type="number" id="age" name="age" min="10" max="19" required 
+                                   value="{{ age if age else '' }}">
+                            <small>Adolescence spans from age 10 to 19</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender"><i class="fas fa-user"></i> Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled {% if not gender %}selected{% endif %}>Select gender</option>
+                                <option value="male" {% if gender == 'male' %}selected{% endif %}>Male</option>
+                                <option value="female" {% if gender == 'female' %}selected{% endif %}>Female</option>
+                            </select>
+                            <small>Used for biological reference</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
+                            <input type="number" id="height" name="height" min="100" max="250" step="0.1" required 
+                                   value="{{ height if height else '' }}">
+                            <small>Measure without shoes</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="weight"><i class="fas fa-weight"></i> Weight (kg)</label>
+                            <input type="number" id="weight" name="weight" min="20" max="200" step="0.1" required 
+                                   value="{{ weight if weight else '' }}">
+                            <small>Measure in lightweight clothing</small>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-robot"></i> Generate AI-Powered Health Plan
+                    </button>
+                </form>
+            </div>
+            
+            {% if show_result %}
+            <div class="results-section">
+                <div class="card result-card">
+                    <h2><i class="fas fa-chart-line"></i> Your Results</h2>
+                    
+                    <div class="result-summary">
+                        <div class="bmi-value">
+                            <h3>BMI: {{ bmi }}</h3>
+                            <div class="bmi-category {{ category|lower|replace(' ', '-') }}">
+                                {{ category }}
+                            </div>
+                        </div>
+                        
+                        <div class="explanation">
+                            <h4><i class="fas fa-microscope"></i> AI-Generated Biological Explanation</h4>
+                            <p>{{ ai_guidance.explanation }}</p>
+                            <p class="science-note">
+                                <i class="fas fa-flask"></i> <strong>Science Note:</strong> 
+                                During adolescence, the body undergoes significant changes including growth spurts, 
+                                hormonal shifts, and brain development. BMI must be interpreted with age and gender 
+                                in mind because growth patterns vary significantly during these years.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nutrition Plan -->
+                <div class="card recommendations-card">
+                    <h2><i class="fas fa-apple-alt"></i> {{ ai_guidance.nutrition.title }}</h2>
+                    <div class="ai-badge">
+                        <i class="fas fa-robot"></i> AI-Personalized for You
+                    </div>
+                    
+                    <div class="nutrition-overview">
+                        <div class="calorie-box">
+                            <i class="fas fa-fire"></i>
+                            <h3>Daily Calories</h3>
+                            <p>{{ ai_guidance.nutrition.calories }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="nutrition-grid">
+                        <div class="nutrition-section">
+                            <h4><i class="fas fa-check-circle"></i> Foods to Emphasize</h4>
+                            <ul>
+                                {% for food in ai_guidance.nutrition.foods_to_eat %}
+                                <li>{{ food }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <div class="nutrition-section">
+                            <h4><i class="fas fa-times-circle"></i> Foods to Limit</h4>
+                            <ul>
+                                {% for food in ai_guidance.nutrition.foods_to_limit %}
+                                <li>{{ food }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h4><i class="fas fa-clock"></i> Meal Timing</h4>
+                        <p>{{ ai_guidance.nutrition.meal_timing }}</p>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <p>{{ ai_guidance.nutrition.details }}</p>
+                    </div>
+                </div>
+                
+                <!-- Other Recommendations Grid -->
+                <div class="card recommendations-card">
+                    <h2><i class="fas fa-heart"></i> Your Complete Health Plan</h2>
+                    <div class="ai-badge">
+                        <i class="fas fa-robot"></i> AI-Personalized for You
+                    </div>
+                    
+                    <div class="recommendations-grid">
+                        <!-- Hydration -->
+                        <div class="recommendation-box">
+                            <div class="rec-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h3>{{ ai_guidance.hydration.title }}</h3>
+                            <div class="highlight-value">{{ ai_guidance.hydration.daily_amount }}</div>
+                            <p><strong>Why It Matters:</strong> {{ ai_guidance.hydration.importance }}</p>
+                            <h4>Tips:</h4>
+                            <ul>
+                                {% for tip in ai_guidance.hydration.tips %}
+                                <li>{{ tip }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <!-- Sleep -->
+                        <div class="recommendation-box">
+                            <div class="rec-icon">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <h3>{{ ai_guidance.sleep.title }}</h3>
+                            <div class="highlight-value">{{ ai_guidance.sleep.hours }}</div>
+                            <p><strong>Biological Importance:</strong> {{ ai_guidance.sleep.importance }}</p>
+                            <h4>Sleep Tips:</h4>
+                            <ul>
+                                {% for tip in ai_guidance.sleep.tips %}
+                                <li>{{ tip }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <!-- Physical Activity -->
+                        <div class="recommendation-box">
+                            <div class="rec-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <h3>{{ ai_guidance.activity.title }}</h3>
+                            <div class="highlight-value">{{ ai_guidance.activity.duration }}</div>
+                            <p><strong>How It Helps:</strong> {{ ai_guidance.activity.benefits }}</p>
+                            <h4>Recommended Activities:</h4>
+                            <ul>
+                                {% for activity in ai_guidance.activity.types %}
+                                <li>{{ activity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Weekly Action Plan -->
+                <div class="card weekly-plan-card">
+                    <h2><i class="fas fa-calendar-week"></i> Your 7-Day Action Plan</h2>
+                    <div class="ai-badge">
+                        <i class="fas fa-robot"></i> AI-Generated Weekly Goals
+                    </div>
+                    <p class="plan-intro">Follow this personalized weekly plan to build healthy habits:</p>
+                    
+                    <div class="weekly-grid">
+                        <div class="day-card">
+                            <div class="day-header">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Monday</h3>
+                            </div>
+                            <p>{{ ai_guidance.weekly_plan.monday }}</p>
+                        </div>
+                        
+                        <div class="day-card">
+                            <div class="day-header">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Tuesday</h3>
+                            </div>
+                            <p>{{ ai_guidance.weekly_plan.tuesday }}</p>
+                        </div>
+                        
+                        <div class="day-card">
+                            <div class="day-header">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Wednesday</h3>
+                            </div>
+                            <p>{{ ai_guidance.weekly_plan.wednesday }}</p>
+                        </div>
+                        
+                        <div class="day-card">
+                            <div class="day-header">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Thursday</h3>
+                            </div>
+                            <p>{{ ai_guidance.weekly_plan.thursday }}</p>
+                        </div>
+                        
+                        <div class="day-card">
+                            <div class="day-header">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Friday</h3>
+                            </div>
+                            <p>{{ ai_guidance.weekly_plan.friday }}</p>
+                        </div>
+                        
+                        <div class="day-card">
+                            <div class="day-header">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Saturday</h3>
+                            </div>
+                            <p>{{ ai_guidance.weekly_plan.saturday }}</p>
+                        </div>
+                        
+                        <div class="day-card">
+                            <div class="day-header">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Sunday</h3>
+                            </div>
+                            <p>{{ ai_guidance.weekly_plan.sunday }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="disclaimer">
+                    <p><i class="fas fa-exclamation-circle"></i> <strong>Educational Purpose:</strong> This tool uses AI to provide general health information for educational purposes only. It is not a substitute for professional medical advice. Always consult healthcare providers for personal health guidance.</p>
+                    <p class="project-info">IB MYP Personal Project • Biology & Health Education • Powered by AI</p>
+                </div>
+            </div>
+            {% endif %}
+        </main>
+        
+        <footer>
+            <p>Teen Health & Biology Education Tool • AI-Powered Personalized Guidance</p>
+            <p class="footer-note">Understanding adolescent development through biological principles and artificial intelligence</p>
+        </footer>
+    </div>
+</body>
+</html>

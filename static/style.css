@@ -1,0 +1,558 @@
+/*
+Teen Health & Biology Education App - AI Enhanced
+Clean, minimal design with calm colors suitable for educational purposes
+*/
+
+/* Base styles and reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color palette - calm, educational colors */
+    --primary-color: #2c5aa0;      /* Calm blue */
+    --secondary-color: #4a8b5c;    /* Nature green */
+    --accent-color: #8a6bc9;       /* Soft purple */
+    --ai-color: #ff6b6b;          /* AI accent */
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --gray-light: #e9ecef;
+    --gray-medium: #adb5bd;
+    --success-color: #4a8b5c;
+    --warning-color: #e6a237;
+    --danger-color: #dc3545;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Border radius */
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: #f0f4f8;
+    padding: var(--spacing-sm);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5 {
+    font-family: 'Source Serif Pro', serif;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+    font-size: 2.2rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+h2 {
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--gray-light);
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+h3 {
+    font-size: 1.4rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-medium);
+    margin-top: calc(var(--spacing-xs) * -0.5);
+}
+
+/* Cards */
+.card {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-light);
+}
+
+.intro-card {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e3f2fd 100%);
+    border-left: 4px solid var(--primary-color);
+}
+
+.form-card {
+    border-left: 4px solid var(--secondary-color);
+}
+
+.result-card {
+    border-left: 4px solid var(--accent-color);
+}
+
+.recommendations-card {
+    border-left: 4px solid #4a8b5c;
+}
+
+.weekly-plan-card {
+    border-left: 4px solid var(--ai-color);
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+}
+
+/* AI Badge */
+.ai-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.ai-badge i {
+    margin-right: 0.3rem;
+}
+
+/* Form styles */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem;
+    border: 1px solid var(--gray-medium);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+}
+
+.form-group small {
+    font-size: 0.85rem;
+    color: var(--gray-medium);
+    margin-top: 0.25rem;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a6f 100%);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    width: 100%;
+    margin-top: var(--spacing-md);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #1e3a6f 0%, var(--primary-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
+}
+
+/* Results section */
+.results-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-summary {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.bmi-value {
+    text-align: center;
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gray-light);
+}
+
+.bmi-category {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: var(--spacing-xs);
+}
+
+.underweight {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.healthy-weight {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.overweight {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.obese {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #bd2130;
+}
+
+.explanation {
+    padding: var(--spacing-md);
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+}
+
+.science-note {
+    background-color: #e8f4fd;
+    border-left: 3px solid var(--primary-color);
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    font-size: 0.95rem;
+}
+
+/* Nutrition Plan */
+.nutrition-overview {
+    margin-bottom: var(--spacing-lg);
+}
+
+.calorie-box {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+    color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+}
+
+.calorie-box i {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.calorie-box h3 {
+    color: white;
+    margin: 0;
+}
+
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.nutrition-section {
+    background-color: #f8f9fa;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gray-light);
+}
+
+.nutrition-section h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.nutrition-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.nutrition-section ul li {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--secondary-color);
+}
+
+.detail-box {
+    background-color: #f8f9fa;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-md);
+    border-left: 3px solid var(--accent-color);
+}
+
+.detail-box h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* Recommendations */
+.recommendations-intro {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.recommendation-box {
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    border: 1px solid var(--gray-light);
+    transition: transform 0.2s;
+}
+
+.recommendation-box:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.rec-icon {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.highlight-value {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #3a7a4c 100%);
+    color: white;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: var(--spacing-sm) 0;
+}
+
+.recommendation-box ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.recommendation-box ul li {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.recommendation-box ul li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Weekly Plan */
+.plan-intro {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.weekly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.day-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    border: 2px solid var(--gray-light);
+    transition: all 0.3s;
+}
+
+.day-card:hover {
+    border-color: var(--ai-color);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+    transform: translateY(-2px);
+}
+
+.day-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--gray-light);
+}
+
+.day-header i {
+    color: var(--ai-color);
+}
+
+.day-header h3 {
+    color: var(--ai-color);
+    margin: 0;
+}
+
+/* Error message */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid #f5c6cb;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Disclaimer */
+.disclaimer {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    font-size: 0.9rem;
+}
+
+.disclaimer i {
+    color: #856404;
+}
+
+.project-info {
+    font-style: italic;
+    margin-top: var(--spacing-sm);
+    text-align: center;
+    color: var(--gray-medium);
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    color: var(--gray-medium);
+    border-top: 1px solid var(--gray-light);
+    font-size: 0.9rem;
+}
+
+.footer-note {
+    font-size: 0.8rem;
+    margin-top: var(--spacing-xs);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .result-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nutrition-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .weekly-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+    
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+}
