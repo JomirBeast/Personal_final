@@ -15,7 +15,9 @@ app = Flask(__name__)
 # PUT YOUR GROQ API KEY HERE
 # Get your free API key from: https://console.groq.com
 # ============================================
-GROQ_API_KEY = "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"  # REPLACE THIS WITH YOUR ACTUAL API KEY
+api_key = os.environ.get("GROQ_API_KEY")
+client = Groq(api_key=api_key)
+ # REPLACE THIS WITH YOUR ACTUAL API KEY
 # ============================================
 
 # Initialize Groq client
@@ -325,4 +327,4 @@ if __name__ == '__main__':
     app.run(debug=True, port=5000)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
