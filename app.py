@@ -22,7 +22,13 @@ client = Groq(api_key=api_key)
 
 # Initialize Groq client
 # First try to get from environment variable, then fall back to hardcoded key
-api_key = os.environ.get("GROQ_API_KEY", GROQ_API_KEY)
+api_key = os.environ.get("GROQ_API_KEY")
+
+if not api_key:
+    raise ValueError("GROQ_API_KEY environment variable is not set.")
+
+client = Groq(api_key=api_key)
+
 
 if api_key == "your_api_key_here":
     print("⚠️  WARNING: Please set your Groq API key in the code!")
